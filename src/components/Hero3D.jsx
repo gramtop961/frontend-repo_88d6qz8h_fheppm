@@ -1,15 +1,20 @@
-import React from 'react';
-import Spline from '@splinetool/react-spline';
+import React, { Suspense } from 'react';
+const Spline = React.lazy(() => import('@splinetool/react-spline'));
 import { Rocket } from 'lucide-react';
+import ErrorBoundary from './ErrorBoundary';
 
 const Hero3D = () => {
   return (
     <section className="relative h-[80vh] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900 to-black text-white">
       <div className="absolute inset-0">
-        <Spline
-          scene="https://prod.spline.design/7H2n3IHv4U2dI9v8/scene.splinecode"
-          style={{ width: '100%', height: '100%' }}
-        />
+        <ErrorBoundary>
+          <Suspense fallback={<div className="h-full w-full bg-slate-900" />}> 
+            <Spline
+              scene="https://prod.spline.design/7H2n3IHv4U2dI9v8/scene.splinecode"
+              style={{ width: '100%', height: '100%' }}
+            />
+          </Suspense>
+        </ErrorBoundary>
       </div>
 
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/40 via-black/30 to-black/70" />
